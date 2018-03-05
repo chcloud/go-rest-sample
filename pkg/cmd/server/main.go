@@ -8,6 +8,11 @@ import (
 	"path"
 	"runtime"
 
+	_ "github.com/chcloud/go-rest-sample/pkg/config"
+	"github.com/chcloud/go-rest-sample/pkg/mapper"
+	rs "github.com/chcloud/go-rest-sample/pkg/resource"
+
+	_ "github.com/go-sql-driver/mysql"
 	// "github.com/labstack/echo"
 	"github.com/chcloud/go-rest-sample/pkg/assets"
 	"github.com/emicklei/go-restful"
@@ -18,32 +23,19 @@ import (
 	_ "github.com/spf13/viper"
 )
 
-// PackageResource xxx
-type PackageResource struct {
-}
-
-// WebService  xx
-func (p PackageResource) WebService() *restful.WebService {
-	ws := new(restful.WebService)
-	ws.Path("/users").Consumes(restful.MIME_JSON)
-	ws.Produces(restful.MIME_JSON) // you can specify this per route as well
-
-	ws.Route(ws.GET("/").To(p.hello))
-	return ws
-}
-func (p PackageResource) hello(request *restful.Request, res *restful.Response) {
-	res.AddHeader("Content-Type", restful.MIME_JSON)
-	res.Write([]byte("[\"hello\"]"))
-}
+// func (p PackageResource)
 
 const (
 //HomeURL for qtrader.io home page URL
 // HomeURL = "https://www.xgopkg.com"
 )
 
+func init() {
+	mapper.Connect()
+}
 func main() {
-	p := PackageResource{}
-	restful.DefaultContainer.Add(p.WebService())
+	urs := rs.UserResource{}
+	restful.DefaultContainer.Add(urs.WebService())
 	config := restfulspec.Config{
 		WebServices: restful.RegisteredWebServices(),
 		APIPath:     "/swagger.json",

@@ -1,6 +1,9 @@
 package mapper
 
 import (
+	"time"
+
+	"github.com/go-xorm/core"
 	"github.com/go-xorm/xorm"
 	"github.com/spf13/viper"
 	"gopkg.in/logger.v1"
@@ -29,4 +32,7 @@ func connectDb() {
 	}
 	engine.SetMaxIdleConns(maxIdle)
 	engine.SetMaxOpenConns(maxActive)
+	engine.TZLocation, _ = time.LoadLocation("Asia/Shanghai")
+	tbMapper := core.NewPrefixMapper(core.SnakeMapper{}, "t_")
+	engine.SetTableMapper(tbMapper)
 }

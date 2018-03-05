@@ -3,8 +3,8 @@ package mapper
 import (
 	"testing"
 
-	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/chcloud/go-rest-sample/pkg/config"
+	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/stretchr/testify/assert"
 )
