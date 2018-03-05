@@ -3,13 +3,13 @@ package main
 import (
 	// "html/template"
 	// "io"
-	"log"
 	"net/http"
 	"path"
 	"runtime"
 
 	_ "github.com/chcloud/go-rest-sample/pkg/config"
 	"github.com/chcloud/go-rest-sample/pkg/mapper"
+	"github.com/chcloud/go-rest-sample/pkg/migrate"
 	rs "github.com/chcloud/go-rest-sample/pkg/resource"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -20,7 +20,9 @@ import (
 	"github.com/go-openapi/spec"
 	_ "github.com/go-xorm/xorm"
 	_ "github.com/mattes/migrate"
+	_ "github.com/mattes/migrate/database/mysql"
 	_ "github.com/spf13/viper"
+	"gopkg.in/logger.v1"
 )
 
 // func (p PackageResource)
@@ -31,7 +33,9 @@ const (
 )
 
 func init() {
+	log.SetOutputLevel(0)
 	mapper.Connect()
+	migrate.Migrate()
 }
 func main() {
 	urs := rs.UserResource{}

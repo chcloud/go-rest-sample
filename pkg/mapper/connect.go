@@ -35,4 +35,5 @@ func connectDb() {
 	engine.TZLocation, _ = time.LoadLocation("Asia/Shanghai")
 	tbMapper := core.NewPrefixMapper(core.SnakeMapper{}, "t_")
 	engine.SetTableMapper(tbMapper)
+	engine.ShowSQL(true)
 }

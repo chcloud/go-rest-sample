@@ -27,3 +27,19 @@ func (p *UserMapper) Save(u *User) error {
 	log.Info(re)
 	return nil
 }
+
+// FindOne  find user by id
+func (p *UserMapper) FindOne(id int64) *User {
+	var user User
+	log.Info("get user id: ", id)
+	// engine.ID(id).Get(user)
+	ok, err := engine.Alias("u").Where("u.id=?", id).Get(&user)
+	if err != nil {
+		log.Errorf("Get user id=%d error: %s", id, err)
+	}
+	log.Infof("Get user result: %v", ok)
+	if ok {
+		return &user
+	}
+	return nil
+}
