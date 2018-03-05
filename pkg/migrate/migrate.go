@@ -3,7 +3,7 @@ package migrate
 
 import (
 	// "database/sql"
-	"xgopkg.com/xgopkg/pkg/config"
+	"github.com/chcloud/go-rest-sample/pkg/config"
 
 	"gopkg.in/logger.v1"
 
